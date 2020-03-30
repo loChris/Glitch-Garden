@@ -5,7 +5,9 @@ using UnityEngine;
 public class AttackerSpawner : MonoBehaviour
 {
     [SerializeField] private bool _spawn = true;
-    [SerializeField] private GameObject _lizardMan;
+    [SerializeField] private float _minSpawnDelay = 1f;
+    [SerializeField] private float _maxSpawnDelay = 5f;
+    [SerializeField] private Attacker _lizardManPrefab;
     
     void Start()
     {
@@ -16,8 +18,13 @@ public class AttackerSpawner : MonoBehaviour
     {
         while (_spawn)
         {
-            Instantiate(_lizardMan);
-            yield return new WaitForSeconds(Random.Range(1f, 5f));
+            yield return new WaitForSeconds(Random.Range(_minSpawnDelay, _maxSpawnDelay));
+            SpawnAttacker();
         }
+    }
+
+    private void SpawnAttacker()
+    {
+        Instantiate(_lizardManPrefab, transform.position, transform.rotation);
     }
 }
