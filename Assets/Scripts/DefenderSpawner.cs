@@ -23,15 +23,24 @@ public class DefenderSpawner : MonoBehaviour
             );
 
         Vector2 worldPosition = Camera.main.ScreenToWorldPoint(clickPosition);
+        Vector2 gridPosition = SnapToGridPosition(worldPosition);
 
-        return worldPosition;
+        return gridPosition;
     }
 
-    private void SpawnDefender(Vector2 worldPosition)
+    private Vector2 SnapToGridPosition(Vector2 rawWorldPosition)
+    {
+        float newX = Mathf.RoundToInt(rawWorldPosition.x);
+        float newY = Mathf.RoundToInt(rawWorldPosition.y);
+        
+        return new Vector2(newX, newY);
+    }
+
+    private void SpawnDefender(Vector2 roundedGridPosition)
     {
         GameObject newDefender = Instantiate(
             defender,
-            worldPosition,
+            roundedGridPosition,
             quaternion.identity
         ) as GameObject;
     }
