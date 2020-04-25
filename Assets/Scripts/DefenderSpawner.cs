@@ -11,15 +11,27 @@ public class DefenderSpawner : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0))
         {
-            SpawnDefender();
+            SpawnDefender(GetSquareClicked());
         }    
     }
 
-    private void SpawnDefender()
+    private Vector2 GetSquareClicked()
+    {
+        Vector2 clickPosition = new Vector2(
+            Input.mousePosition.x,
+            Input.mousePosition.y
+            );
+
+        Vector2 worldPosition = Camera.main.ScreenToWorldPoint(clickPosition);
+
+        return worldPosition;
+    }
+
+    private void SpawnDefender(Vector2 worldPosition)
     {
         GameObject newDefender = Instantiate(
             defender,
-            transform.position,
+            worldPosition,
             quaternion.identity
         ) as GameObject;
     }
