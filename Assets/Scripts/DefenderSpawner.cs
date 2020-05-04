@@ -47,5 +47,7 @@ public class DefenderSpawner : MonoBehaviour
             roundedGridPosition,
             quaternion.identity
         ) as Defender;
+        
+        FindObjectOfType<StarDisplay>().spendStars(20);
     }
 }

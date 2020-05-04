@@ -23,6 +23,8 @@ public class Projectile : MonoBehaviour
         {
             health.DealDamage(_damage);
             Destroy(gameObject);
+            
+            FindObjectOfType<StarDisplay>().AddStars(10);
         }
     }
 }
