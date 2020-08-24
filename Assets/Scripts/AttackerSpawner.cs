@@ -7,7 +7,7 @@ public class AttackerSpawner : MonoBehaviour
     [SerializeField] private bool _spawn = true;
     [SerializeField] private float _minSpawnDelay = 1f;
     [SerializeField] private float _maxSpawnDelay = 5f;
-    [SerializeField] private Attacker _lizardManPrefab;
+    [SerializeField] private Attacker[] _lizardManPrefabArray;
     
     void Start()
     {
@@ -23,8 +23,23 @@ public class AttackerSpawner : MonoBehaviour
         }
     }
 
+    private void StopSpawning()
+    {
+        _spawn = false;
+    }
+
     private void SpawnAttacker()
     {
-        Instantiate(_lizardManPrefab, transform.position, transform.rotation);
+        var attackerIndex = Random.Range(0, _lizardManPrefabArray.Length);
+        Spawn(_lizardManPrefabArray[attackerIndex]);
+        
+    }
+
+    private void Spawn(Attacker myAttacker)
+    {
+        Attacker newAttacker = Instantiate(
+            myAttacker, transform.position, transform.rotation
+            ) as Attacker;
+        newAttacker.transform.parent = transform;
     }
 }

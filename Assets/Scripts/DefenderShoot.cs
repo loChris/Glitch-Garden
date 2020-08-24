@@ -6,29 +6,24 @@ using UnityEngine;
 
 public class DefenderShoot : MonoBehaviour
 {
-
     [SerializeField] private GameObject _zucchiniGameObject;
     [SerializeField] private GameObject _gunGameObject;
-    private AttackerSpawner myLaneSpawner;
+    private AttackerSpawner _myLaneSpawner;
+    private Animator _animator;
 
 
     private void Start()
     {
         SetLaneSpawner();
+        _animator = GetComponent<Animator>();
     }
 
     private void Update()
     {
         if (AttackerInLane())
-        {
-            Debug.Log("shoot");
-            //change animation state to shooting
-        }
+            _animator.SetBool("IsAttacking", true);
         else
-        {
-            Debug.Log("idle");
-            //change animation state to idle
-        }
+            _animator.SetBool("IsAttacking", false);
     }
 
     private void SetLaneSpawner()
@@ -37,23 +32,26 @@ public class DefenderShoot : MonoBehaviour
 
         foreach (AttackerSpawner attackerSpawner in attackerSpawners)
         {
-            bool IsCloseEnough = (Mathf.Abs(attackerSpawner.transform.position.y - transform.position.y) - 0.5 <= Mathf.Epsilon);
-
+            bool IsCloseEnough = (
+                Mathf.Abs(
+                    attackerSpawner.transform.position.y - transform.position.y
+                    ) -.5f <= Mathf.Epsilon
+                );
+            
             if (IsCloseEnough)
             {
-                myLaneSpawner = attackerSpawner;
+                _myLaneSpawner = attackerSpawner;
             }
         }
     }
 
     private bool AttackerInLane()
     {
-        if (myLaneSpawner.transform.childCount <= 0)
-        {
+        Debug.Log("lane spawner child count: " + _myLaneSpawner.transform.childCount);
+        if (_myLaneSpawner.transform.childCount <= 0)
             return false;
-        }
-
-        return true;
+        else
+            return true;
     }
     
     public void Fire()
