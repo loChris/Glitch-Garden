@@ -44,7 +44,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _spawn: 1
-  _minSpawnDelay: 10
+  _minSpawnDelay: 3
   _maxSpawnDelay: 10
   _lizardManPrefabArray:
   - {fileID: 7442136160357924149, guid: 4956e052124cc59479fe2adca1fd47b2, type: 3}

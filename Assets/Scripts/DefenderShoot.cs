@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class DefenderShoot : MonoBehaviour
 {
-    [SerializeField] private GameObject _zucchiniGameObject;
+    [SerializeField] private GameObject _projectileGameObject;
     [SerializeField] private GameObject _gunGameObject;
     private AttackerSpawner _myLaneSpawner;
     private Animator _animator;
@@ -47,7 +47,6 @@ public class DefenderShoot : MonoBehaviour
 
     private bool AttackerInLane()
     {
-        Debug.Log("lane spawner child count: " + _myLaneSpawner.transform.childCount);
         if (_myLaneSpawner.transform.childCount <= 0)
             return false;
         else
@@ -56,6 +55,6 @@ public class DefenderShoot : MonoBehaviour
     
     public void Fire()
     {
-        Instantiate(_zucchiniGameObject, _gunGameObject.transform.position, transform.rotation);
+        Instantiate(_projectileGameObject, _gunGameObject.transform.position, transform.rotation);
     }
 }
