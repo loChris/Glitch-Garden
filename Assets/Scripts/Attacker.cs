@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Assertions.Comparers;
 
 public class Attacker : MonoBehaviour
 {
@@ -17,6 +18,15 @@ public class Attacker : MonoBehaviour
     void Update()
     {
         transform.Translate(Vector2.left * (_currentSpeed * Time.deltaTime));
+        UpdateAnimationState();
+    }
+
+    void UpdateAnimationState()
+    {
+        if (!_currentTarget)
+        {
+            _animator.SetBool("IsAttacking", false);
+        }
     }
 
     public void SetMovespeed(float speed)
@@ -28,5 +38,14 @@ public class Attacker : MonoBehaviour
     {
         _animator.SetBool("IsAttacking", true);
         _currentTarget = target;
+    }
+
+    public void HitCurrentTarget(float damage)
+    {
+        if (!_currentTarget) return;
+
+        Health health = _currentTarget.GetComponent<Health>();
+        if (health)
+            health.DealDamage(damage);
     }
 }

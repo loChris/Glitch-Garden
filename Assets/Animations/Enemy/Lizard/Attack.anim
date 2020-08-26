@@ -426,3 +426,10 @@ AnimationClip:
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
+  - time: 1
+    functionName: HitCurrentTarget
+    data: 
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 40
+    intParameter: 0
+    messageOptions: 0
